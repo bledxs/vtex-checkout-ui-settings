@@ -1,0 +1,28 @@
+{
+  "extends": ["vtex"],
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "requireConfigFile": false
+  },
+  "root": true,
+  "env": {
+    "node": true,
+    "es6": true,
+    "jquery": true,
+    "browser": true
+  },
+  "globals": {
+    "metrics": true,
+    "vtexjs": true
+  },
+  "plugins": ["@babel"],
+  "overrides": [
+    {
+      "files": ["node/build/react/**/*"],
+      "globals": {
+        "__RUNTIME__": true,
+        "window": true
+      }
+    }
+  ]
+}
