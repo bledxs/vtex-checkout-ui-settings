@@ -1,7 +1,7 @@
 {
   "name": "checkout-ui-settings",
-  "vendor": "vendor",
-  "version": "0.0.1",
+  "vendor": "CHANGE_ME",
+  "version": "CHANGE_ME",
   "title": "Checkout UI Settings",
   "description": "Declare custom settings to be used by checkout ui",
   "builders": {
@@ -9,8 +9,20 @@
     "checkout-ui-custom": "0.x"
   },
   "scripts": {
-    "prereleasy": "bash lint.sh || sh lint.sh"
+    "postreleasy": "vtex publish --verbose"
   },
   "credentialType": "absolute",
+  "policies": [
+    {
+      "name": "outbound-access",
+      "attrs": {
+        "host": "portal.vtexcommercestable.com.br",
+        "path": "/api/*"
+      }
+    },
+    {
+      "name": "ADMIN_DS"
+    }
+  ],
   "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
 }
