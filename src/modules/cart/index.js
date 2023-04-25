@@ -1,3 +1,5 @@
+import watchProductList from './productListObserver'
+
 /**
  * This function is called when the document is ready.
  *
@@ -5,6 +7,7 @@
  */
 export const initialLoad = (_e) => {
   // ...
+  watchProductList()
 }
 
 /**

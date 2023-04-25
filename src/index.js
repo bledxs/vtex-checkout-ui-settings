@@ -75,10 +75,7 @@ const onHashChange = () => {
     try {
       hashFunction()
     } catch (error) {
-      console.error(
-        `Error ejecutando la función para el hash "${hash}":`,
-        error
-      )
+      console.error(`Error ejecutando la función para el hash "${hash}":`, error)
     }
   }
 }

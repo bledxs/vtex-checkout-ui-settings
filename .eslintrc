@@ -13,7 +13,8 @@
   },
   "globals": {
     "metrics": true,
-    "vtexjs": true
+    "vtexjs": "readonly",
+    "$": "readonly"
   },
   "plugins": ["@babel"],
   "overrides": [
