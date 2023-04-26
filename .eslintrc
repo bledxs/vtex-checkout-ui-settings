@@ -1,5 +1,5 @@
 {
-  "extends": ["vtex"],
+  "extends": ["vtex", "plugin:jquery/slim"],
   "parser": "@babel/eslint-parser",
   "parserOptions": {
     "requireConfigFile": false
@@ -16,7 +16,7 @@
     "vtexjs": "readonly",
     "$": "readonly"
   },
-  "plugins": ["@babel"],
+  "plugins": ["@babel", "jquery"],
   "overrides": [
     {
       "files": ["node/build/react/**/*"],
