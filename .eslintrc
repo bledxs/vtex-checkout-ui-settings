@@ -1,8 +1,8 @@
 {
-  "extends": ["vtex", "plugin:jquery/slim"],
-  "parser": "@babel/eslint-parser",
+  "extends": ["vtex", "plugin:jquery/slim", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "requireConfigFile": false
+    "project": "./tsconfig.json"
   },
   "root": true,
   "env": {
@@ -16,13 +16,28 @@
     "vtexjs": "readonly",
     "$": "readonly"
   },
-  "plugins": ["@babel", "jquery"],
+  "plugins": ["@babel", "jquery", "@typescript-eslint"],
   "overrides": [
     {
       "files": ["node/build/react/**/*"],
       "globals": {
         "__RUNTIME__": true,
         "window": true
+      }
+    },
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }]
+      }
+    },
+    {
+      "files": ["webpack.config.js"],
+      "parserOptions": {
+        "project": null
       }
     }
   ]

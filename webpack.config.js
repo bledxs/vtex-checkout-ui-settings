@@ -1,5 +1,6 @@
 const path = require('path')
 
+const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
@@ -8,22 +9,29 @@ module.exports = (_, argv) => {
   const isProduction = argv.mode === 'production'
 
   return {
-    entry: ['./src/index.js', './src/index.scss'],
+    entry: ['./src/index.ts', './src/index.scss'],
     output: {
       path: path.resolve(__dirname, './checkout-ui-custom'),
       filename: 'checkout6-custom.js',
       clean: true,
     },
+    resolve: {
+      extensions: ['.ts', '.js'],
+      plugins: [
+        new TsconfigPathsPlugin({
+          configFile: './tsconfig.json',
+          baseUrl: './src',
+          extensions: ['.ts', '.js'],
+        }),
+      ],
+    },
     module: {
       rules: [
         {
-          test: /\.js$/,
+          test: /\.ts$/,
           exclude: /node_modules/,
           use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env'],
-            },
+            loader: 'ts-loader',
           },
         },
         {
@@ -45,10 +53,9 @@ module.exports = (_, argv) => {
     ],
     optimization: {
       minimize: true,
-      minimizer: [
-        isProduction ? new TerserPlugin({ extractComments: false }) : false,
-        new CssMinimizerPlugin(),
-      ].filter(Boolean),
+      minimizer: [isProduction ? new TerserPlugin({ extractComments: false }) : false, new CssMinimizerPlugin()].filter(
+        Boolean
+      ),
     },
   }
 }

@@ -1,10 +1,7 @@
-/**
- * This function watches for changes in the cart and processes the product list to execute functions
- * for each product in the cart.
- */
 const watchProductList = () => {
-  const targetNode = document.getElementById('.full-cart .cart tbody')
+  const targetNode = document?.querySelector('.full-cart .cart tbody')
   const config = { attributes: true, childList: true, subtree: true }
+
   const observer = new MutationObserver(processProductList)
 
   if (targetNode) {
@@ -30,8 +27,8 @@ const processProductList = () => {
  function until the next repaint, which can improve performance and prevent unnecessary reflows. */
   requestAnimationFrame(() => {
     try {
-      if (vtexjs?.checkout?.orderForm?.items) {
-        const { items } = vtexjs?.checkout?.orderForm ?? { items: [] }
+      if (window.vtexjs?.checkout?.orderForm?.items) {
+        const { items } = window.vtexjs?.checkout?.orderForm ?? { items: [] }
 
         if (items?.length) {
           const productItems = document.querySelectorAll('.full-cart .cart .product-item')
@@ -53,5 +50,10 @@ const processProductList = () => {
     }
   })
 }
+
+/**
+ * This function watches for changes in the cart and processes the product list to execute functions
+ * for each product in the cart.
+ */
 
 export default watchProductList

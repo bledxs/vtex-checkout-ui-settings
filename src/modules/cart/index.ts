@@ -1,11 +1,13 @@
 import watchProductList from './productListObserver'
 
+import type { InitialLoad } from '@/typings/InitialLoad'
+import type { OrderForm } from '@/typings/orderForm'
+
 /**
  * This function is called when the document is ready.
  *
- * @param {Event} _e - The event object (optional).
  */
-export const initialLoad = (_e) => {
+export const initialLoad = (_e: InitialLoad) => {
   // ...
   watchProductList()
 }
@@ -13,17 +15,15 @@ export const initialLoad = (_e) => {
 /**
  * This function is called every time the orderForm is updated.
  *
- * @param {Object} _orderForm - The orderForm object.
  */
-export const orderFormUpdate = (_orderForm) => {
+export const orderFormUpdate = (_orderForm: OrderForm) => {
   // ...
 }
 
 /**
  * This function is called when the hash in the URL matches this module.
  *
- * @param {Event} _e - The event object (optional).
  */
-export const stepStart = (_e) => {
+export const stepStart = (_e: HashChangeEvent) => {
   // ...
 }
