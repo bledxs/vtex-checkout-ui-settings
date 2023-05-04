@@ -1,7 +1,6 @@
 import 'global'
 
 import type { Address, Item, OrderForm, ShippingData } from './orderForm'
-
 declare global {
   interface Window {
     vtexjs: {

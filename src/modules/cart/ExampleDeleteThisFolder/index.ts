@@ -7,7 +7,6 @@ const createParagraph = () => {
 
   return new HTMLElementBuilder<'p'>('p', paragraphAttributes).addContent(span)
 }
-
 const createList = () => {
   return new HTMLElementBuilder<'ul'>('ul', { id: 'my-list' })
     .addContent(new HTMLElementBuilder<'li'>('li', {}, {}).addContent('Item 1'))
@@ -44,7 +43,6 @@ const createButton = () => {
 
   return button
 }
-
 const createContent = () => {
   const contentAttributes: Attributes = {
     class: 'my-class-content',
@@ -59,7 +57,6 @@ const createContent = () => {
     .addContent(list)
     .addContent(button)
 }
-
 const renderExample = () => {
   try {
     const container = document?.querySelector('.cart-template') as HTMLElement
