@@ -1,14 +1,3 @@
-const watchProductList = () => {
-  const targetNode = document?.querySelector('.full-cart .cart tbody')
-  const config = { attributes: true, childList: true, subtree: true }
-
-  const observer = new MutationObserver(processProductList)
-
-  if (targetNode) {
-    observer.observe(targetNode, config)
-  }
-}
-
 let isProcessing = false
 /**
  * The function processes the product list in the cart and executes functions for each product.
@@ -37,7 +26,7 @@ const processProductList = () => {
             // TODO: In this loop, you can add functions that need to be executed for each product in the cart
             /*
              * Example:
-             * renderPrices(items[index]) This function renders the prices for the product
+             * renderPrices(items[index]) This function renders the prices for each product
              *
              */
           })
@@ -52,8 +41,18 @@ const processProductList = () => {
 }
 
 /**
- * This function watches for changes in the cart and processes the product list to execute functions
- * for each product in the cart.
+ * This function sets up a MutationObserver to watch for changes in a specific element and calls a
+ * function to process those changes.
  */
+const watchProductList = () => {
+  const targetNode = document?.querySelector('.full-cart .cart tbody')
+  const config = { attributes: true, childList: true, subtree: true }
+
+  const observer = new MutationObserver(processProductList)
+
+  if (targetNode != null) {
+    observer.observe(targetNode, config)
+  }
+}
 
 export default watchProductList

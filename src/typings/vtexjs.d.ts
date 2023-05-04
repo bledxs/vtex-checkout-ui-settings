@@ -78,4 +78,4 @@ declare global {
   }
 }
 
-const { vtexjs } = globalThis.window
+export const { vtexjs } = globalThis.window

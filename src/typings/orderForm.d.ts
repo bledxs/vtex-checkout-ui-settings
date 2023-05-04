@@ -1,32 +1,3 @@
-export interface OrderForm {
-  allowManualPrice: boolean
-  canEditData: boolean
-  clientPreferencesData: ClientPreferenceData
-  clientProfileData: ClientProfileData
-  customData: CustomData
-  giftRegistryData: GiftRegistryData
-  ignoreProfileData: boolean
-  isCheckedIn: boolean
-  items: Item[]
-  itemsOrdination: ItemOrdination[]
-  loggedIn: boolean
-  marketingData: MarketingData[]
-  messages: []
-  orderFormId: string
-  paymentData: PaymentData[]
-  ratesAndBenefitsData: RatesAndBenefitsData[]
-  salesChannel: '1'
-  selectableGifts: SelectableGift[]
-  sellers: Seller[]
-  shippingData: ShippingData
-  storeId: StoreId[]
-  storePreferencesData: StorePreferenceData[]
-  totalizers: Totalizer[]
-  userProfileId: string
-  userType: string
-  value: number
-}
-
 interface ClientPreferenceData {
   locale: string
   optinNewsLetter: boolean
@@ -47,15 +18,15 @@ interface ClientProfileData {
   isCorporate: boolean
 }
 
-interface CustomData {
-  attachmentId: string
-  customApps: CustomApp[]
-}
-
 interface CustomApp {
   fields: []
   id: string
   major: number
+}
+
+interface CustomData {
+  attachmentId: string
+  customApps: CustomApp[]
 }
 
 interface GiftRegistryData {
@@ -64,6 +35,32 @@ interface GiftRegistryData {
   giftRegistryTypeName: string
   addressId: string
   description: string
+}
+
+interface AdditionalInfo {
+  dimension: string
+  brandName: string
+  brandId: string
+  offeringInfo: string
+  offeringType: string
+  offeringTypeId: string
+}
+
+interface PriceTag {
+  name: string
+  value: number
+  rawValue: number
+  isPercentual: boolean
+  identifier: string
+}
+
+interface SellingPrice {
+  quantity: number
+  value: number
+}
+interface PriceDefinition {
+  sellingPrice: SellingPrice[]
+  total: number
 }
 
 export interface Item {
@@ -115,33 +112,6 @@ export interface Item {
   priceDefinition: PriceDefinition
 }
 
-interface AdditionalInfo {
-  dimension: string
-  brandName: string
-  brandId: string
-  offeringInfo: string
-  offeringType: string
-  offeringTypeId: string
-}
-
-interface PriceTag {
-  name: string
-  value: number
-  rawValue: number
-  isPercentual: boolean
-  identifier: string
-}
-
-interface PriceDefinition {
-  sellingPrice: SellingPrice[]
-  total: number
-}
-
-interface SellingPrice {
-  quantity: number
-  value: number
-}
-
 interface ItemOrdination {
   criteria: string
   ascending: boolean
@@ -157,16 +127,6 @@ interface MarketingData {
   utmiCampaign: string
   utmiPart: string
   utmipage: string
-}
-
-interface PaymentData {
-  giftCards: GiftCard[]
-  giftCardMessages: []
-  availableAccounts: AvailableAccount[]
-  availableTokens: []
-  installmentOptions: InstallmentOption[]
-  paymentSystems: PaymentSystem[]
-  payments: Payment[]
 }
 
 interface GiftCard {
@@ -187,12 +147,6 @@ interface AvailableAccount {
   availableAddresses: string[]
 }
 
-interface InstallmentOption {
-  paymentSystem: string
-  value: number
-  installments: Installment[]
-}
-
 interface Installment {
   count: number
   hasInterestRate: boolean
@@ -200,7 +154,19 @@ interface Installment {
   value: number
   total: number
 }
+interface InstallmentOption {
+  paymentSystem: string
+  value: number
+  installments: Installment[]
+}
 
+interface Validator {
+  regex: string
+  mask: string
+  cardCodeRegex: string
+  cardCodeMask: string
+  weights: number[]
+}
 interface PaymentSystem {
   id: number
   name: string
@@ -214,14 +180,6 @@ interface PaymentSystem {
   description: string
 }
 
-interface Validator {
-  regex: string
-  mask: string
-  cardCodeRegex: string
-  cardCodeMask: string
-  weights: number[]
-}
-
 interface Payment {
   accountId: string
   bin: string
@@ -231,9 +189,14 @@ interface Payment {
   value: number
 }
 
-interface RatesAndBenefitsData {
-  rateAndBenefitsIdentifiers: RateAndBenefitsIdentifier[]
-  teaser: Teaser[]
+interface PaymentData {
+  giftCards: GiftCard[]
+  giftCardMessages: []
+  availableAccounts: AvailableAccount[]
+  availableTokens: []
+  installmentOptions: InstallmentOption[]
+  paymentSystems: PaymentSystem[]
+  payments: Payment[]
 }
 
 interface RateAndBenefitsIdentifier {
@@ -244,28 +207,25 @@ interface Teaser {
   items: Item[]
 }
 
-interface SelectableGift {
-  id: string
-  availableQuantity: string
-  availableGifts: AvailableGift[]
+interface RatesAndBenefitsData {
+  rateAndBenefitsIdentifiers: RateAndBenefitsIdentifier[]
+  teaser: Teaser[]
 }
 
 interface AvailableGift {
   items: Item[]
   isSelected: boolean
 }
+interface SelectableGift {
+  id: string
+  availableQuantity: string
+  availableGifts: AvailableGift[]
+}
 
 interface Seller {
   id: string
   name: string
   logo: string
-}
-
-export interface ShippingData {
-  address: Address
-  availableAddresses: Address[]
-  logisticsInfo: LogisticsInfo[]
-  selectedAddresses: Address[]
 }
 
 export interface Address {
@@ -281,28 +241,6 @@ export interface Address {
   reference: string
   state: string
   street: string
-}
-
-interface LogisticsInfo {
-  addressId: string
-  itemIndex: number
-  selectedDeliveryChannel: string
-  selectedSla: string
-  slas: Sla[]
-}
-
-interface Sla {
-  availableDeliveryWindows: AvailableDeliveryWindow[]
-  deliveryChannel: string
-  deliveryIds: DeliveryId[]
-  deliveryWindow: DeliveryWindow
-  id: string
-  lockTTL: string
-  name: string
-  price: number
-  shippingEstimate: string
-  shippingEstimateDate: string
-  tax: number
 }
 
 interface AvailableDeliveryWindow {
@@ -327,19 +265,36 @@ interface DeliveryWindow {
   tax: number
 }
 
-interface StoreId {
-  storeId: string
+interface Sla {
+  availableDeliveryWindows: AvailableDeliveryWindow[]
+  deliveryChannel: string
+  deliveryIds: DeliveryId[]
+  deliveryWindow: DeliveryWindow
+  id: string
+  lockTTL: string
+  name: string
+  price: number
+  shippingEstimate: string
+  shippingEstimateDate: string
+  tax: number
+}
+interface LogisticsInfo {
+  addressId: string
+  itemIndex: number
+  selectedDeliveryChannel: string
+  selectedSla: string
+  slas: Sla[]
 }
 
-interface StorePreferenceData {
-  countryCode: string
-  saveUserData: boolean
-  templateOptions: TemplateOptions
-  timeZone: string
-  currencyCode: string
-  currencyLocale: number
-  currencySymbol: string
-  currencyFormatInfo: CurrencyFormatInfo
+export interface ShippingData {
+  address: Address
+  availableAddresses: Address[]
+  logisticsInfo: LogisticsInfo[]
+  selectedAddresses: Address[]
+}
+
+interface StoreId {
+  storeId: string
 }
 
 interface TemplateOptions {
@@ -353,9 +308,48 @@ interface CurrencyFormatInfo {
   currencyGroupSize: number
   startsWithCurrencySymbol: boolean
 }
+interface StorePreferenceData {
+  countryCode: string
+  saveUserData: boolean
+  templateOptions: TemplateOptions
+  timeZone: string
+  currencyCode: string
+  currencyLocale: number
+  currencySymbol: string
+  currencyFormatInfo: CurrencyFormatInfo
+}
 
 interface Totalizer {
   id: string
   name: string
+  value: number
+}
+
+export interface OrderForm {
+  allowManualPrice: boolean
+  canEditData: boolean
+  clientPreferencesData: ClientPreferenceData
+  clientProfileData: ClientProfileData
+  customData: CustomData
+  giftRegistryData: GiftRegistryData
+  ignoreProfileData: boolean
+  isCheckedIn: boolean
+  items: Item[]
+  itemsOrdination: ItemOrdination[]
+  loggedIn: boolean
+  marketingData: MarketingData[]
+  messages: []
+  orderFormId: string
+  paymentData: PaymentData[]
+  ratesAndBenefitsData: RatesAndBenefitsData[]
+  salesChannel: '1'
+  selectableGifts: SelectableGift[]
+  sellers: Seller[]
+  shippingData: ShippingData
+  storeId: StoreId[]
+  storePreferencesData: StorePreferenceData[]
+  totalizers: Totalizer[]
+  userProfileId: string
+  userType: string
   value: number
 }

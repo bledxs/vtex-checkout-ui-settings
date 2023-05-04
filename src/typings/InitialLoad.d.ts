@@ -1,9 +1,1 @@
-/*
-const initialLoad = (e) => {
-}
-
-*/
-
-export interface InitialLoad {
-  (e: Event): void
-}
+export type InitialLoad = (e: Event) => void

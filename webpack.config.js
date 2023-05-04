@@ -20,7 +20,7 @@ module.exports = (_, argv) => {
       plugins: [
         new TsconfigPathsPlugin({
           configFile: './tsconfig.json',
-          baseUrl: './src',
+          baseUrl: '.',
           extensions: ['.ts', '.js'],
         }),
       ],
