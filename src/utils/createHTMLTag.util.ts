@@ -8,6 +8,20 @@ type Content =
   | Array<HTMLElementBuilder<keyof HTMLElementTagNameMap>>
   | HTMLElementBuilder<keyof HTMLElementTagNameMap>
 
+const CONTENT_OPERATIONS: any = Object.freeze({
+  string: (element: HTMLElement, content: string) => {
+    element.textContent = content
+  },
+  HTMLElementBuilder: (element: HTMLElement, content: HTMLElementBuilder<keyof HTMLElementTagNameMap>) => {
+    element.appendChild(content.createElement())
+  },
+  Array: (element: HTMLElement, content: Array<HTMLElementBuilder<keyof HTMLElementTagNameMap>>) => {
+    content.forEach((child: HTMLElementBuilder<keyof HTMLElementTagNameMap>) => {
+      element.appendChild(child.createElement())
+    })
+  },
+})
+
 /* The `HTMLElementBuilder` class is a TypeScript class that allows for the creation of HTML elements
 with specified attributes, event listeners, and content. */
 class HTMLElementBuilder<T extends keyof HTMLElementTagNameMap> {
@@ -55,14 +69,10 @@ class HTMLElementBuilder<T extends keyof HTMLElementTagNameMap> {
     }
 
     this._content.forEach((contentItem) => {
-      if (typeof contentItem === 'string') {
-        element.textContent = contentItem
-      } else if (Array.isArray(contentItem)) {
-        contentItem.forEach((child: HTMLElementBuilder<keyof HTMLElementTagNameMap>) => {
-          element.appendChild(child.createElement())
-        })
-      } else {
-        element.appendChild(contentItem.createElement())
+      const contentType = Array.isArray(contentItem) ? 'array' : typeof contentItem
+      const contentOperation = CONTENT_OPERATIONS[contentType]
+      if (contentOperation) {
+        contentOperation(element, contentItem)
       }
     })
 
