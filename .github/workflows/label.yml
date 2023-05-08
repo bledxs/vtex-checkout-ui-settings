@@ -9,14 +9,15 @@ name: Labeler
 on: [pull_request_target]
 
 jobs:
-  label:
-
-    runs-on: ubuntu-latest
+  triage:
     permissions:
       contents: read
       pull-requests: write
+    runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/labeler@v4
-      with:
-        repo-token: "${{ secrets.REPO_ACCESS_TOKEN }}"
+      - uses: actions/labeler@v4
+        with:
+          repo-token: '${{ secrets.REPO_ACCESS_TOKEN }}'
+          configuration-path: .github/workflows/label.yml
+          sync-labels: true
