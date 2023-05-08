@@ -10,14 +10,13 @@ on: [pull_request_target]
 
 jobs:
   label:
+
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
 
     steps:
-      - name: Labeler
-        uses: actions/labeler@v4
-        with:
-          repo-token: '${{ secrets.REPO_ACCESS_TOKEN }}'
-          configuration-path: .github/workflows/label.yml
+    - uses: actions/labeler@v4
+      with:
+        repo-token: "${{ secrets.REPO_ACCESS_TOKEN }}"
