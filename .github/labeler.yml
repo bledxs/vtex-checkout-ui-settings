@@ -1,37 +1,38 @@
-label:
-  - name: change-module-cart
-    pattern: 'src/modules/cart/**/*'
-    color: 'DB5461'
-  - name: change-module-email
-    pattern: 'src/modules/email/**/*'
-    color: 'FF8C42'
-  - name: change-module-minicart-resume
-    pattern: 'src/modules/minicart-resume/**/*'
-    color: 'FFC107'
-  - name: change-module-payment
-    pattern: 'src/modules/payment/**/*'
-    color: '00BEBE'
-  - name: change-module-profile
-    pattern: 'src/modules/profile/**/*'
-    color: '7C83FD'
-  - name: change-module-shipping
-    pattern: 'src/modules/shipping/**/*'
-    color: '9C52AB'
-  - name: change-style-cart
-    pattern: 'src/styles/cart/**/*'
-    color: 'FF6B6B'
-  - name: change-style-email
-    pattern: 'src/styles/email/**/*'
-    color: 'F5A962'
-  - name: change-style-minicart-resume
-    pattern: 'src/styles/minicart-resume/**/*'
-    color: 'F4D35E'
-  - name: change-style-payment
-    pattern: 'src/styles/payment/**/*'
-    color: '41EAD4'
-  - name: change-style-profile
-    pattern: 'src/styles/profile/**/*'
-    color: 'A0A8D9'
-  - name: change-style-shipping
-    pattern: 'src/styles/shipping/**/*'
-    color: '8B5B9B'
+repo:
+  - '*'
+
+change-module-cart:
+  - src/modules/cart/**/*
+
+change-module-email:
+  - src/modules/email/**/*
+
+change-module-payment:
+  - src/modules/payment/**/*
+
+change-module-shipping:
+  - src/modules/shipping/**/*
+
+change-module-minicart-resume:
+  - src/modules/minicart-resume/**/*
+
+change-module-profile:
+  - src/modules/profile/**/*
+
+change-style-cart:
+  - src/styles/cart/**/*
+
+change-style-email:
+  - src/styles/email/**/*
+
+change-style-payment:
+  - src/styles/payment/**/*
+
+change-style-shipping:
+  - src/styles/shipping/**/*
+
+change-style-minicart-resume:
+  - src/styles/minicart-resume/**/*
+
+change-style-profile:
+  - src/styles/profile/**/*
