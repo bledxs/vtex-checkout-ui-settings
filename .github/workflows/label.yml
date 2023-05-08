@@ -20,3 +20,4 @@ jobs:
     - uses: actions/labeler@v4
       with:
         repo-token: "${{ secrets.REPO_ACCESS_TOKEN }}"
+        configuration-path: .github/workflows/label.yml
