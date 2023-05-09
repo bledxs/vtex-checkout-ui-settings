@@ -38,3 +38,6 @@ style:profile 👤:
 
 dependencies 📦:
   - 'package.json'
+
+workflows 📝:
+  - '.github/workflows/**/*'
