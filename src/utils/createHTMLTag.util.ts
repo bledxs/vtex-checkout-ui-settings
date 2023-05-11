@@ -68,6 +68,36 @@ class HTMLElementBuilder<T extends keyof HTMLElementTagNameMap> {
 
     return element
   }
+
+  /**
+   * This function appends a newly created HTML element to a parent element and returns the instance of
+   * the object.
+   * @param {HTMLElement} parent - HTMLElement - This is the parent element to which the newly created
+   * element will be appended.
+   * @returns The `this` keyword is being returned, which refers to the instance of the object that the
+   * method `appendTo` is being called on.
+   */
+  public appendTo(parent: HTMLElement): this {
+    parent.appendChild(this.createElement())
+
+    return this
+  }
+
+  public prependTo(parent: HTMLElement): this {
+    parent.prepend(this.createElement())
+
+    return this
+  }
+
+  public static delegateEvents(parent: HTMLElement, eventType: string, selector: string, handler: EventHandler) {
+    parent.addEventListener(eventType, (event) => {
+      const targetElement = event.target as HTMLElement
+
+      if (targetElement.matches(selector)) {
+        handler(event)
+      }
+    })
+  }
 }
 
 export default HTMLElementBuilder
