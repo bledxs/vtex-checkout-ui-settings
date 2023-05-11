@@ -1,4 +1,4 @@
-import type { Attributes, EventListeners } from '@/utils/createHTMLTag.util'
+import type { Attributes } from '@/utils/createHTMLTag.util'
 import HTMLElementBuilder from '@/utils/createHTMLTag.util'
 
 const createParagraph = () => {
@@ -36,10 +36,20 @@ const createButton = () => {
     id: 'my-button',
     type: 'button',
   }
-  const buttonEvents: EventListeners = {
-    click: handleClick,
-  }
-  const button = new HTMLElementBuilder<'button'>('button', buttonAttributes, buttonEvents).addContent('Click me!')
+
+  // const buttonEventListeners: EventListeners = {
+  //   click: handleClick,
+  // }
+
+  // const button = new HTMLElementBuilder<'button'>('button', buttonAttributes, buttonEventListeners).addContent('Click me!')
+  const button = new HTMLElementBuilder<'button'>('button', buttonAttributes).addContent('Click me!')
+
+  HTMLElementBuilder.delegateEvents(
+    document.body,
+    'click',
+    '#my-button',
+    handleClick,
+  )
 
   return button
 }
@@ -63,7 +73,9 @@ const renderExample = () => {
     const content = createContent()
 
     if (container.querySelector('#my-list') == null) {
-      container.prepend(content.createElement())
+      // container.prepend(content.createElement())
+      // content.appendTo(container)
+      content.prependTo(container)
     }
   } catch (e) {
     console.error('Error rendering ExampleDeleteThisFolder', e)
