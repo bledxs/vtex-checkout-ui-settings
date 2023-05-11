@@ -41,3 +41,6 @@ dependencies 📦:
 
 workflows 📝:
   - '.github/workflows/**/*'
+
+utils 🛠️:
+  - 'src/utils/**/*'

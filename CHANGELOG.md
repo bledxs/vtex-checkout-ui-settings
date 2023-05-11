@@ -1,7 +1,3 @@
-## [0.0.1](https://github.com/0lucs0/checkout-ui-settings/compare/v0.0.3...v0.0.1) (2023-05-09)
-
-
-
 ## [0.0.3](https://github.com/0lucs0/checkout-ui-settings/compare/v0.0.2...v0.0.3) (2023-05-09)
 
 
