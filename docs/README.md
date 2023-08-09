@@ -28,4 +28,4 @@ Once the app is deployed and installed in the account, every scripts contained i
 
 ## Documentation
 
-### [HTMLElementBuilder](/HTMLElementBuilder.md)
+### [HTMLElementBuilder](/docs/HTMLElementBuilder.md)
