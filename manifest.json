@@ -1,7 +1,7 @@
 {
   "name": "checkout-ui-settings",
-  "vendor": "chedrauimx",
-  "version": "0.2.40-beta.1",
+  "vendor": "CHANGE_ME",
+  "version": "CHANGE_ME",
   "title": "Checkout UI Settings",
   "description": "Declare custom settings to be used by checkout ui",
   "builders": {
