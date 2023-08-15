@@ -1,65 +1,160 @@
-# Documentación de `HTMLElementBuilder`
+# HTMLElementBuilder
 
-La clase `HTMLElementBuilder` es una herramienta en TypeScript que facilita la creación de elementos HTML con atributos, escuchadores de eventos y contenido personalizado. Esta clase se puede utilizar para construir elementos HTML de manera programática y agregarlos a la página web.
+The `HTMLElementBuilder` class provides a convenient and fluent API to dynamically create, configure, and manipulate HTML elements using TypeScript.
 
-## Tipos
+## Type Definitions
 
-### `Attributes`
+### Attributes
 
-`Attributes` es un tipo definido como `Record<string, string>`, lo que significa que es un objeto que contiene pares de clave-valor, donde las claves son cadenas y los valores son cadenas también. Estos pares representan los atributos que se asignarán a un elemento HTML.
+A record of attribute names and their corresponding values.
 
-### `EventHandler<T>`
+```typescript
+type Attributes = Record<string, string>
+```
 
-`EventHandler` es un tipo de función que toma un argumento de tipo `T`, que es una subclase de `Event`. Representa una función que se ejecutará cuando ocurra un evento específico.
+### EventHandler
 
-### `EventListeners<T>`
+A generic type for event handlers.
 
-`EventListeners` es un tipo definido como `Record<string, EventHandler<T>>`, lo que indica que es un objeto que contiene pares de clave-valor, donde las claves son cadenas que representan los nombres de eventos y los valores son funciones `EventHandler` que se ejecutarán cuando ocurra el evento correspondiente.
+```typescript
+type EventHandler<T extends Event = Event> = (event: T) => void
+```
 
-### `Content`
+### EventListeners
 
-`Content` es un tipo que puede ser una cadena, un array de instancias de `HTMLElementBuilder` o una instancia de `HTMLElementBuilder`. Esto representa el contenido que se agregará al elemento HTML.
+A record of event types and their corresponding handlers.
 
-## Clase `HTMLElementBuilder`
+```typescript
+type EventListeners<T extends Event = Event> = Record<string, EventHandler<T>>
+```
+
+### Content
+
+Represents the content that can be added to an HTML element. It can be a string, a single `HTMLElementBuilder`, or an array of `HTMLElementBuilder` instances.
+
+```typescript
+type Content =
+  | string
+  | Array<HTMLElementBuilder<keyof HTMLElementTagNameMap>>
+  | HTMLElementBuilder<keyof HTMLElementTagNameMap>
+```
+
+## Class Structure
 
 ### Constructor
 
-El constructor de la clase `HTMLElementBuilder` acepta tres argumentos opcionales:
+Creates an instance of `HTMLElementBuilder` with the specified tag name, attributes, event listeners, and content.
 
-- `tag`: El nombre de la etiqueta HTML que se creará.
-- `attributes`: Un objeto de atributos que se asignarán al elemento.
-- `eventListeners`: Un objeto de escuchadores de eventos que se asociarán al elemento.
-
-### Método `addContent(content: Content): this`
-
-Este método permite agregar contenido al elemento. Puede tomar una cadena, un array de instancias de `HTMLElementBuilder` o una instancia de `HTMLElementBuilder`. Devuelve la instancia actual de la clase para permitir el encadenamiento de métodos.
-
-### Método `createElement(): HTMLElementTagNameMap[T]`
-
-Crea y devuelve un elemento HTML basado en la etiqueta especificada en el constructor. Aplica los atributos y los escuchadores de eventos definidos en la instancia de `HTMLElementBuilder`. Además, agrega el contenido proporcionado a través de `addContent`.
-
-### Método `appendTo(parent: HTMLElement): this`
-
-Este método agrega el elemento HTML creado por `createElement` como un hijo al elemento `parent` proporcionado. Devuelve la instancia actual para encadenar métodos.
-
-### Método `prependTo(parent: HTMLElement): this`
-
-Similar a `appendTo`, pero agrega el elemento al principio de la lista de hijos del `parent`.
-
-### Método estático `delegateEvents(parent: HTMLElement, eventType: string, selector: string, handler: EventHandler)`
-
-Este método estático permite delegar el manejo de eventos a un elemento primario `parent`. Los eventos del tipo `eventType` que ocurran en elementos hijos que coincidan con el `selector` se manejarán utilizando la función `handler`.
-
-## Ejemplo de Uso
-
-```javascript
-// Crear un elemento div con clase "container"
-const container = new HTMLElementBuilder("div", { class: "container" });
-
-// Agregar un párrafo y un botón al contenido del elemento div
-container.addContent("¡Hola, mundo!");
-container.addContent(new HTMLElementBuilder("button", { type: "button" }, { click: (event) => console.log("Botón clickeado") }));
-
-// Crear el elemento y agregarlo al cuerpo del documento
-container.appendTo(document.body);
+```typescript
+constructor(tag: T, attributes?: Attributes, eventListeners?: EventListeners, content?: Content)
 ```
+
+### Public Methods
+
+- **addContent(content: Content): this**
+  Adds the specified content to the internal content collection.
+
+- **clearContent(): this**
+  Clears all previously added content.
+
+- **addContentIf(condition: boolean, content: Content): this**
+  Conditionally adds the specified content if the condition is true.
+
+- **setStyle(property: string, value: string): this**
+  Sets a CSS style property to the specified value.
+
+- **addAttributes(attributes: Attributes): this**
+  Adds multiple attributes to the element.
+
+- **addEventListeners(listeners: EventListeners): this**
+  Adds multiple event listeners to the element.
+
+- **removeEventListener(eventType: string): this**
+  Removes a specific event listener from the element.
+
+- **addClass(className: string): this**
+  Adds a CSS class to the element.
+
+- **appendTo(parent: HTMLElement): this**
+  Appends the built HTML element to the specified parent element.
+
+- **prependTo(parent: HTMLElement): this**
+  Prepends the built HTML element to the specified parent element.
+<!--  -->
+### Static Methods
+
+- **delegateEvents(parent: HTMLElement, eventType: string, selector: string, handler: EventHandler)**  
+  Enables event delegation. It listens for the specified event type on the parent element and triggers the handler if the event target matches the provided selector.
+
+## Usage
+
+### 1. Basic Element Creation
+
+Creating a simple `div` with text content:
+
+```typescript
+const divBuilder = new HTMLElementBuilder('div')
+divBuilder.addContent('Hello, world!')
+const divElement = divBuilder.createElement() // Returns an HTMLDivElement with the text "Hello, world!"
+```
+
+### 2. Adding Attributes and Content
+
+Creating an anchor (`<a>`) element with attributes and text content:
+
+```typescript
+const anchorBuilder = new HTMLElementBuilder('a', { href: 'https://www.example.com' })
+anchorBuilder.addContent('Visit Example.com')
+const anchorElement = anchorBuilder.createElement() // Returns an HTMLAnchorElement with the specified href and text.
+```
+
+### 3. Chaining Methods for Fluent API
+
+Creating a styled button element with event listeners:
+
+```typescript
+const button = new HTMLElementBuilder('button')
+  .addContent('Click me!')
+  .setStyle('backgroundColor', 'blue')
+  .setStyle('color', 'white')
+  .addEventListeners({
+    click: () => alert('Button was clicked!'),
+  })
+  .createElement()
+```
+
+### 4. Nested Elements
+
+Creating a `div` with nested paragraph and anchor elements:
+
+```typescript
+const nestedDivBuilder = new HTMLElementBuilder('div').addContent(
+  new HTMLElementBuilder('p')
+    .addContent('Check out this ')
+    .addContent(new HTMLElementBuilder('a', { href: 'https://www.example.com' }).addContent('link')),
+)
+
+const nestedDivElement = nestedDivBuilder.createElement()
+```
+
+### 5. Appending to DOM
+
+Appending a dynamically created element to the body:
+
+```typescript
+const div = new HTMLElementBuilder('div').addContent('Appended to the document body!').appendTo(document.body)
+```
+
+### 6. Using Event Delegation
+
+Using the static method to delegate events:
+
+```typescript
+HTMLElementBuilder.delegateEvents(document.body, 'click', 'button.dynamic-button', (event) => {
+  alert('Dynamically created button was clicked!')
+})
+
+new HTMLElementBuilder('button').addClass('dynamic-button').addContent('Dynamic Button').appendTo(document.body)
+```
+
+These examples showcase a few of the ways you can use the `HTMLElementBuilder` to simplify dynamic DOM manipulation in TypeScript. The class's fluent API makes it especially powerful for constructing complex DOM structures in a readable manner.
