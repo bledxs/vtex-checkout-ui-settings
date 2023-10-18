@@ -117,7 +117,7 @@ const onHashChange = (e?: HashChangeEvent) => {
     try {
       hashFunction(e as HashChangeEvent)
     } catch (error) {
-      console.error(`Error ejecutando la función para el hash "${hash}":`, error)
+      console.error(`Error executing function for hash "${hash}":`, error)
     }
   }
 }

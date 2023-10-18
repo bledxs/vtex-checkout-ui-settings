@@ -1,7 +1,7 @@
 {
   "name": "checkout-ui-settings",
-  "vendor": "CHANGE_ME",
-  "version": "CHANGE_ME",
+  "vendor": "tiendasjumboqaio",
+  "version": "0.1.0",
   "title": "Checkout UI Settings",
   "description": "Declare custom settings to be used by checkout ui",
   "builders": {
