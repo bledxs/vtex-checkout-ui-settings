@@ -1,6 +1,3 @@
-import renderExample from './ExampleDeleteThisFolder'
-import watchProductList from './productListObserver'
-
 import type { InitialLoad } from '@/typings/InitialLoad'
 import type { OrderForm } from '@/typings/orderForm'
 /**
@@ -9,8 +6,6 @@ import type { OrderForm } from '@/typings/orderForm'
  */
 export const initialLoad = (_e: InitialLoad) => {
   // ...
-  watchProductList()
-  renderExample()
 }
 
 /**
